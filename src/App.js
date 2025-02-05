@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ColorBox from "./components/ColorBox";
 import _ from "lodash";
 import ColorOptions from "./components/ColorOptions";
@@ -9,6 +9,7 @@ function App() {
   const [score, setScore] = useState(0)
   const [guessCorrect, setGuessCorrect] = useState(false)
   const [key, setKey] = useState(false)
+  const [firstMove, setFirstMove] = useState(true)
 
   const colorBox = document.querySelector('.colorBox')
 
@@ -22,17 +23,17 @@ function App() {
     } else {
       setGuessCorrect(false)
     }
+    setFirstMove(false)
     setKey(!key)
+    setColors(_.shuffle(colors))
   }
 
 
   const handleRestart = () => {
     setScore(0)
+    setFirstMove(true)
   }
 
-  useEffect(() => {
-    setColors(_.shuffle(colors))
-  }, [score])
 
   return (
     <div className="container">
@@ -52,7 +53,7 @@ function App() {
         </>
       ) : (
         <>
-          {score > 0 && (<>
+          {!firstMove && (<>
             <motion.p
               className="game-status"
               key={key}
@@ -65,8 +66,8 @@ function App() {
           </>)}
         </>
       )}
-      <p className="score">Your score: <span data-testid="score">{score}</span></p>
-      <button className="btn restart" onClick={handleRestart}>Restart</button>
+      <p data-testid="score" className="score">Your score: <span data-testid="score">{score}</span></p>
+      <button data-testid="newGameButton" className="btn restart" onClick={handleRestart}>Restart</button>
     </div>
   );
 }
