@@ -32,7 +32,8 @@ function App() {
 
   useEffect(() => {
     setColors(_.shuffle(colors))
-  }, [score])
+  }, [score, colors])
+  
   return (
     <div className="container">
       <h1>Welcome to our Color Game</h1>
