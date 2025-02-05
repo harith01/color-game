@@ -8,7 +8,7 @@ function App() {
   const [colors, setColors] = useState(['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'])
   const [score, setScore] = useState(0)
   const [guessCorrect, setGuessCorrect] = useState(false)
-  const [swap, setSwap] = useState(false)
+  const [key, setKey] = useState(false)
 
   const colorBox = document.querySelector('.colorBox')
 
@@ -22,7 +22,7 @@ function App() {
     } else {
       setGuessCorrect(false)
     }
-    setSwap(!swap)
+    setKey(!key)
   }
 
 
@@ -44,7 +44,7 @@ function App() {
         <>
           <motion.p
             className="game-status" data-testid="gameStatus"
-            key={swap}
+            key={key}
             animate={{ opacity: 1, scale: 1.5 }}
             transition={{ duration: 0.5, ease: "easeOut" }}>
             You Guessed Right!
@@ -55,7 +55,7 @@ function App() {
           {score > 0 && (<>
             <motion.p
               className="game-status"
-              key={swap}
+              key={key}
               animate={{ opacity: 1, scale: 1.5, x: [0, -10, 10, -10, 10, 0], color: ["#ff0000"] }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
